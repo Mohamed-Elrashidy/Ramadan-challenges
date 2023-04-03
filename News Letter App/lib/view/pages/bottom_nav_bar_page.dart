@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:home_page/home_page.dart';
+import 'package:home_page/view/pages/bookmark_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
+import 'home_page.dart';
 
 class BottomNavBarPage extends StatelessWidget {
   const BottomNavBarPage({Key? key}) : super(key: key);
@@ -15,7 +17,7 @@ class BottomNavBarPage extends StatelessWidget {
       return [
         HomePage(),
         Container(),
-        Container(),
+        BookMarkPage(),
         Container()
       ];
     }
@@ -33,8 +35,8 @@ class BottomNavBarPage extends StatelessWidget {
           activeColorPrimary: CupertinoColors.activeBlue,
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ), PersistentBottomNavBarItem(
-          icon: Icon(CupertinoIcons.flag),
-          title: ("Saved"),
+          icon: Icon(CupertinoIcons.bookmark),
+          title: ("BookMarked"),
           activeColorPrimary: CupertinoColors.activeBlue,
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ), PersistentBottomNavBarItem(

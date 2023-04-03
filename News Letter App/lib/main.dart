@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:home_page/home_page.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:home_page/view/pages/news_page.dart';
 
-import 'bottom_nav_bar_page.dart';
+import 'view/pages/bottom_nav_bar_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
@@ -14,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(

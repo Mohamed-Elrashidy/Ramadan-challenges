@@ -1,8 +1,11 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:home_page/dummy_data.dart';
+import 'package:home_page/view/pages/news_page.dart';
+import 'package:home_page/view/widgets/title_widget.dart';
 
-import 'news.dart';
+import '../../model/news.dart';
+import '../../utils/dummy_data.dart';
+import '../widgets/category_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -52,11 +55,16 @@ class _HomePageState extends State<HomePage> {
       child: PageView.builder(
         controller: pageController,
         itemCount: DummyData.breakingNewsList.length,
-        itemBuilder: (_, index) => Container(
-            padding: EdgeInsets.all(8),
-            // color: Colors.red,
+        itemBuilder: (_, index) => InkWell(
+          onTap: (){
+            Navigator.of(context,rootNavigator:true).pushReplacement(MaterialPageRoute(builder: (context)=>NewsPage(news: DummyData.breakingNewsList[index])));
+          },
+          child: Container(
+              padding: EdgeInsets.all(8),
+              // color: Colors.red,
 
-            child: itemBuilder(index, DummyData.breakingNewsList[index])),
+              child: itemBuilder(index, DummyData.breakingNewsList[index])),
+        ),
       ),
     );
   }
@@ -140,17 +148,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Row(
                     children: [
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.blue),
-                        child: Text(news.category,
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
+                      CategoryWidget(
+                        category: news.category,
                       ),
                     ],
                   ),
@@ -180,13 +179,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.white)),
                     ],
                   ),
-                  Text(
-                    news.title,
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
+                  TitleWidget(title: news.title)
                 ],
               ),
             ),
@@ -240,31 +233,37 @@ class _HomePageState extends State<HomePage> {
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: DummyData.breakingNewsList.length,
-        itemBuilder: (_, index) => Container(
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    DummyData.breakingNewsList[index].image,
-                    fit: BoxFit.cover,
-                    width: (150),
-                    height: (150),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(16)),
-                    height: 150,
-                    child: DataView(DummyData.breakingNewsList[index]),
-                  ),
-                )
-              ],
-            )));
+        itemBuilder: (_, index) => InkWell(
+              onTap: () {
+                Navigator.of(context,rootNavigator:true).pushReplacement(MaterialPageRoute(builder: (context)=>NewsPage(news: DummyData.breakingNewsList[index])));
+
+              },
+              child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          DummyData.breakingNewsList[index].image,
+                          fit: BoxFit.cover,
+                          width: (150),
+                          height: (150),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(16)),
+                          height: 150,
+                          child: DataView(DummyData.breakingNewsList[index]),
+                        ),
+                      )
+                    ],
+                  )),
+            ));
   }
 
   Widget DataView(News news) {
