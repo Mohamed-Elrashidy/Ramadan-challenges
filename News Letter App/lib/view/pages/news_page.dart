@@ -21,21 +21,24 @@ class NewsPage extends StatefulWidget {
 class _NewsPageState extends State<NewsPage> {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          leading: Container(),
-          pinned: true,
-          expandedHeight: Dimension.scaleHeight(300),
-          flexibleSpace: FlexibleSpaceBar(
-            background: backgroundBuilder(),
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            leading: Container(),
+            pinned: true,
+            expandedHeight: Dimension.scaleHeight(300),
+            flexibleSpace: FlexibleSpaceBar(
+              background: backgroundBuilder(),
+            ),
           ),
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-              childCount: 1, (BuildContext context, int index) => body()),
-        )
-      ],
+          SliverList(
+
+            delegate: SliverChildBuilderDelegate(
+                childCount: 1, (BuildContext context, int index) => body()),
+          )
+        ],
+      ),
     );
   }
 
@@ -132,9 +135,12 @@ class _NewsPageState extends State<NewsPage> {
       child: Column(
         children: [
           bodyHeader(),
-          Text(
-            widget.news.data,
-            style: TextStyle(fontSize: 16, color: Colors.black),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              widget.news.data,
+              style: TextStyle(fontSize: 16, color: Colors.black,),
+            ),
           ),
         ],
       ),
